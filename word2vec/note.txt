@@ -1,1 +1,2 @@
 use conda detm-arxiv activate
+git push origin HEAD:master
