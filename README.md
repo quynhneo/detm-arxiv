@@ -15,3 +15,4 @@ https://github.com/quynhneo/DETM_arxiv_org/blob/master/scripts/data_undebates.py
 
 ## Run Dynamic Embedded Topic Modeling 
 run `python main.py` in https://github.com/quynhneo/DETM_arxiv_org/blob/master/main.py
+all settings are on top of the file 
