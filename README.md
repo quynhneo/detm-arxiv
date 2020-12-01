@@ -2,10 +2,13 @@
 Running dynamic embedded topic modeling on abstracts of arxiv articles
 
 ## Get the meta data, containing abstracts: 
-https://www.kaggle.com/Cornell-University/arxiv
+https://www.kaggle.com/Cornell-University/arxiv (json format)
 
 ## Generate embedding 
 `python word2vec/run_w2v.py`
-This will produce vector representation of words (default dimension = 300), and save as embed.txt
+This will take all words from abstracts, apply nlp processing (remove stop words, remove rare words, etc) and produce vector representations of all the words (default embedding dimension = 300), and save as embed.txt
 
 ## Preprocess text data 
+
+
+## Run Dynamic Embedded Topic Modeling 
