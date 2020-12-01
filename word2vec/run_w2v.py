@@ -67,9 +67,9 @@ def read_data(meta_data_file):
     file =  open(meta_data_file, 'r')
     line_count = 0
     all_docs_ini = []
-    for line in file:  # 1793457 line
-        # if line_count > 100000:
-        #     break
+    for line in file:  # 1793457 line for the current file
+        if line_count > 1000:
+             break
         try:
             #line_view = json.loads(file.readline())  # view object of the json line
             line_view = json.loads(line)  # view object of the json line
@@ -121,6 +121,7 @@ if __name__ == '__main__':
     all_docs_ini = read_data(meta_data_file)
 
     print('preprocessing')
+    print('number of cpus: ', multiprocessing.cpu_count() )
     pool = multiprocessing.Pool(processes= multiprocessing.cpu_count() )
     list_of_doc = pool.map(preprocess, all_docs_ini)
 
