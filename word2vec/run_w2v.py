@@ -68,8 +68,8 @@ def read_data(meta_data_file):
     line_count = 0
     all_docs_ini = []
     for line in file:  # 1793457 line for the current file
-        if line_count > 1000:
-             break
+#        if line_count > 1000: # uncomment this to do quick test run
+#             break
         try:
             #line_view = json.loads(file.readline())  # view object of the json line
             line_view = json.loads(line)  # view object of the json line
