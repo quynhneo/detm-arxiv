@@ -9,6 +9,7 @@ https://www.kaggle.com/Cornell-University/arxiv (json format)
 This will take all words from abstracts, apply nlp processing (remove stop words, remove rare words, etc) and produce vector representations of all the words (default embedding dimension = 300), and save as embed.txt
 
 ## Preprocess text data 
-
+https://github.com/quynhneo/DETM_arxiv_org/blob/master/scripts/data_undebates.py
 
 ## Run Dynamic Embedded Topic Modeling 
+run `python main.py` in https://github.com/quynhneo/DETM_arxiv_org/blob/master/main.py
