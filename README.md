@@ -4,6 +4,7 @@
 By: Quynh M. Nguyen<sup> a</sup> and Kyle Cranmer<sup> a, b</sup>
 
 <sup> a</sup> _Physics Department, New York University, New York 10012_
+
 <sup> a, b</sup> _Center for Data Science, New York University, New York 10012_
 
 ## Project description
