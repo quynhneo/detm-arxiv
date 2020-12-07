@@ -23,7 +23,7 @@ This will take all words from abstracts, apply nlp processing (remove stop words
 
 More on word embedding is available in this paper: https://arxiv.org/pdf/1310.4546.pdf
 ## Clone my fork of the original [Dynamic Embedded Topic Modeling](https://github.com/adjidieng/DETM)
-I have made some changes to void runtime error, no change to the model
+I have made some changes to becasuse runtime errors, no change to the model
 ```
 git clone https://github.com/quynhneo/DETM_arxiv_org
 ```
