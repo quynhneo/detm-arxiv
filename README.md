@@ -27,4 +27,4 @@ https://github.com/quynhneo/DETM_arxiv_org/blob/master/scripts/data_undebates.py
 ```
 python main.py
 ``` 
-in https://github.com/quynhneo/DETM_arxiv_org/blob/master/main.py (all setup and models settings are on top of the file)
+in https://github.com/quynhneo/DETM_arxiv_org/blob/master/main.py (all setup and models settings are on top of the file).
