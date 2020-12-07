@@ -39,9 +39,10 @@ https://github.com/quynhneo/DETM_arxiv_org/blob/master/scripts/data_undebates.py
 ```
 python main.py
 ``` 
-in https://github.com/quynhneo/DETM_arxiv_org/blob/master/main.py (all setup and models settings are on top of the file)
+(all setup and models settings are on top of the file)
 
 ## Plot the results
 ```
-https://github.com/quynhneo/DETM_arxiv_org/blob/master/plot_word_evolution.py
+python plot_word_evolution.py 
 ```
+(edit path to saved model `beta_file` on top)
