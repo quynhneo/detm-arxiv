@@ -5,7 +5,7 @@ Quynh M. Nguyen<sup> a</sup> and Kyle Cranmer<sup> a, b</sup>
 
 <sup> a</sup> _Physics Department, New York University, New York 10012_
 
-<sup> a, b</sup> _Center for Data Science, New York University, New York 10012_
+<sup> a, b</sup> _Center for Data Science, New York University, New York 10011_
 
 ## Project description
 Running dynamic embedded topic modeling on abstracts of arxiv articles and discover how topics in STEM change in time. This is an implementation of [Dynamic Embedded Topic Modeling](https://github.com/adjidieng/DETM) by Adji B. Dieng, Francisco J. R. Ruiz, and David M. Blei of Columbia University. 
