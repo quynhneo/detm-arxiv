@@ -1,4 +1,4 @@
-# THIS REPO IS HERE TEMPORARILY, WILL BE MOVED TO MY PERSONAL GITHUB)
+# THIS REPO IS HERE TEMPORARILY, WILL BE MOVED TO MY PERSONAL [GITHUB](https://github.com/quynhneo) )
 
 # Investigating how topics of STEM papers change with time, using Dynamic Embedded Topic Modeling 
 Running dynamic embedded topic modeling on abstracts of arxiv articles
