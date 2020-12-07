@@ -1,14 +1,14 @@
-# THIS REPO IS HERE TEMPORARILY, WILL BE MOVED TO MY PERSONAL [GITHUB](https://github.com/quynhneo) )
+# _THIS REPO IS HERE TEMPORARILY, WILL BE MOVED TO MY PERSONAL [GITHUB](https://github.com/quynhneo)_ )
 
-# Investigating how topics of STEM papers change with time, using Dynamic Embedded Topic Modeling
-By: Quynh M. Nguyen<sup> a</sup> and Kyle Cranmer<sup> a, b</sup>
+# Time evolution of STEM topics with Dynamic Embedded Topic Modeling
+Quynh M. Nguyen<sup> a</sup> and Kyle Cranmer<sup> a, b</sup>
 
 <sup> a</sup> _Physics Department, New York University, New York 10012_
 
 <sup> a, b</sup> _Center for Data Science, New York University, New York 10012_
 
 ## Project description
-Running dynamic embedded topic modeling on abstracts of arxiv articles to see how the topics change with time. This is an implementation of [Dynamic Embedded Topic Modeling](https://github.com/adjidieng/DETM) by Adji B. Dieng, Francisco J. R. Ruiz, and David M. Blei of Columbia University. 
+Running dynamic embedded topic modeling on abstracts of arxiv articles and discover how topics in STEM change in time. This is an implementation of [Dynamic Embedded Topic Modeling](https://github.com/adjidieng/DETM) by Adji B. Dieng, Francisco J. R. Ruiz, and David M. Blei of Columbia University. 
 
 ## Get the meta data, containing abstracts 
 Visit https://www.kaggle.com/Cornell-University/arxiv (json format)
