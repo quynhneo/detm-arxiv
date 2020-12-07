@@ -1,4 +1,4 @@
-### _THIS REPO IS HERE TEMPORARILY, WILL BE MOVED TO MY PERSONAL [GITHUB](https://github.com/quynhneo)_ )
+ _THIS REPO IS HERE TEMPORARILY, WILL BE MOVED TO MY PERSONAL [GITHUB](https://github.com/quynhneo)_ )
 
 # Time evolution of STEM topics with Dynamic Embedded Topic Modeling
 Quynh M. Nguyen<sup> a</sup> and Kyle Cranmer<sup> a, b</sup>
