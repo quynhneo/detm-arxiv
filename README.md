@@ -25,7 +25,7 @@ More on word embedding is available in this paper: https://arxiv.org/pdf/1310.45
 ## Clone my fork of the original [Dynamic Embedded Topic Modeling](https://github.com/adjidieng/DETM)
 I have made some changes to becasuse runtime errors, no change to the model
 ```
-git clone https://github.com/quynhneo/DETM_arxiv_org
+git clone https://github.com/quynhneo/DETM
 ```
 
 ## Preprocess text data 
