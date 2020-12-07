@@ -32,7 +32,7 @@ git clone https://github.com/quynhneo/DETM_arxiv_org
 ```
 python data_undebates.py
 ```
-https://github.com/quynhneo/DETM_arxiv_org/blob/master/scripts/data_undebates.py (modify the path to json file appropriately)
+(modify the path to json file appropriately)
 
 ## Run Dynamic Embedded Topic Modeling 
 
