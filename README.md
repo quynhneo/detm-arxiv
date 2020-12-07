@@ -1,3 +1,5 @@
+# THIS REPO IS HERE TEMPORARILY, WILL BE MOVED TO MY PERSONAL GITHUB)
+
 # Investigating how topics of STEM papers change with time, using Dynamic Embedded Topic Modeling 
 Running dynamic embedded topic modeling on abstracts of arxiv articles
 
