@@ -1,7 +1,7 @@
 # THIS REPO IS HERE TEMPORARILY, WILL BE MOVED TO MY PERSONAL [GITHUB](https://github.com/quynhneo) )
 
 # Investigating how topics of STEM papers change with time, using Dynamic Embedded Topic Modeling 
-Running dynamic embedded topic modeling on abstracts of arxiv articles
+Running dynamic embedded topic modeling on abstracts of arxiv articles. This is an implementation of [Dynamic Embedded Topic Modeling](https://github.com/adjidieng/DETM) by Adji B. Dieng, Francisco J. R. Ruiz, and David M. Blei of Columbia University. 
 
 ## Get the meta data, containing abstracts: 
 https://www.kaggle.com/Cornell-University/arxiv (json format)
@@ -12,8 +12,9 @@ https://www.kaggle.com/Cornell-University/arxiv (json format)
 python word2vec/run_w2v.py
 ```
   
-This will take all words from abstracts, apply nlp processing (remove stop words, remove rare words, etc) and produce vector representations of all the words (default embedding dimension = 300), and save as embed.txt
-.More on word embedding is available in the original paper: https://arxiv.org/pdf/1310.4546.pdf
+This will take all words from abstracts, apply nlp processing (remove stop words, remove rare words, etc) and produce vector representations of all the words (default embedding dimension = 300), and save as embed.txt.
+
+More on word embedding is available in this paper: https://arxiv.org/pdf/1310.4546.pdf
 
 ## Preprocess text data 
 ```
