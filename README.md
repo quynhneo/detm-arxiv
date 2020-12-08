@@ -47,4 +47,4 @@ python plot_word_evolution.py
 ```
 (edit path to saved model `beta_file` on top)
 
-**A very preliminary** result is shown in the [.png file](https://github.com/quynhneo/detm-arxiv/blob/master/detm_un_K_50_Htheta_800_Optim_adam_Clip_0.0_ThetaAct_relu_Lr_0.005_Bsz_1000_RhoSize_300_L_3_minDF_100_trainEmbeddings_1_beta.png), much more tuning to be done. 
+**A very preliminary** result, evolution of word probability across time for eight different topics is shown in the [.png file](https://github.com/quynhneo/detm-arxiv/blob/master/detm_un_K_50_Htheta_800_Optim_adam_Clip_0.0_ThetaAct_relu_Lr_0.005_Bsz_1000_RhoSize_300_L_3_minDF_100_trainEmbeddings_1_beta.png), much more tuning to be done. 
