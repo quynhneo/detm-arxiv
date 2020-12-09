@@ -1,4 +1,4 @@
-# Time evolution of STEM topics with Dynamic Embedded Topic Modeling
+# Time evolution of STEM topics with Dynamic Embedded Topic Modeling (work in progress)
 Quynh M. Nguyen<sup> a, b</sup> and Kyle Cranmer<sup> a, c</sup>
 
 <sup> a</sup> _Physics Department, New York University, New York 10003_
