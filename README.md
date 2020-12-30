@@ -11,14 +11,15 @@ Quynh M. Nguyen<sup> a, b</sup> and Kyle Cranmer<sup> a, c</sup>
 Running dynamic embedded topic modeling on abstracts of arxiv articles and discover how topics in STEM change in time. This is an implementation of [Dynamic Embedded Topic Modeling](https://github.com/adjidieng/DETM) by Adji B. Dieng, Francisco J. R. Ruiz, and David M. Blei of Columbia University. 
 
 ## Get the meta data, containing abstracts 
-Visit https://www.kaggle.com/Cornell-University/arxiv (json format)
+Visit https://www.kaggle.com/Cornell-University/arxiv to get `arxiv-metadata-oai-snapshot.json`.
 
 ## Generate embedding 
+Modify  path to  `arxiv-metadata-oai-snapshot.json` in `word2vec/run_w2v.py` and run:
   
 ```
 python word2vec/run_w2v.py
 ```
-  
+
 This will take all words from abstracts, apply nlp processing (remove stop words, remove rare words, etc) and produce vector representations of all the words (default embedding dimension = 300), and save as embed.txt.
 
 More on word embedding is available in this paper: https://arxiv.org/pdf/1310.4546.pdf
@@ -34,10 +35,10 @@ conda activate detm
 ```
 
 ## Preprocess text data 
+Modify  path to  `arxiv-metadata-oai-snapshot.json` in `data_undebates.py` and run:
 ```
 python data_undebates.py
 ```
-(modify the path to json file appropriately)
 
 ## Run Dynamic Embedded Topic Modeling 
 
