@@ -57,7 +57,7 @@ For example, using conda to create a virtual env:
 ```
 Singularity> conda create --name detm --file requirements.txt 
 ```
-Now everything is ready. Conda environment named `detm` has been installed ***inside** the singularity container. This ensure that your inode quota is not consumed, and the environment is exact.
+Now everything is ready. Conda environment named `detm` has been installed **inside** the singularity container. This ensure that your inode quota is not consumed, and the environment is exact.
 To run `DETM/main.py`, there are now two options: interactive running (good for testing, debugging, short jobs), and batch job good for real and longer jobs. 
 ## Interactive mode
 From a log in node, request a computing node with gpu:
@@ -66,6 +66,7 @@ $srun --cpus-per-task=20 --gres=gpu:1 --nodes 1 --mem=50GB --time=7-00:00:00 --p
 ```
 In the computing node:
 ```
+$cd DETM
 $singularity exec --overlay overlay-5GB-200K.ext3 /scratch/work/public/singularity/cuda10.1-cudnn7-devel-ubuntu18.04.sif /bin/bash
 Singularity> source /ext3/env.sh
 Singularity> conda activate detm
