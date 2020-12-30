@@ -61,4 +61,53 @@ Create a virtual env:
 ```
 conda create --name detm --file requirements.txt 
 ```
+Now everything is ready. Conda environment has been installed in the singularity container. This ensure that your inode quota is not consumed, and the environment is exact.
+To run `DETM/main.py`, there are now two options: interactive running (for testing, debugging, short job), and batch job for real and longer jobs. 
+## Interactive run
+from a log in node, request a computing node with gpu 
+```
+srun --cpus-per-task=20 --gres=gpu:1 --nodes 1 --mem=50GB --time=7-00:00:00 --pty /bin/bash
+```
+In the computing node,
+```
+singularity exec --overlay overlay-5GB-200K.ext3 /scratch/work/public/singularity/cuda10.1-cudnn7-devel-ubuntu18.04.sif /bin/bash
+source /ext3/env.sh
+conda activate detm
+python main.py
+```
+## Submitting a job through slurm
+Make a script such as `slurm.s` below and modify directory as needed 
+```
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=20
+#SBATCH --gres=gpu:1
+#SBATCH --time=7-0
+#SBATCH --mem=50GB
+#SBATCH --job-name=torch
+#SBATCH --mail-type=END
+#SBATCH --mail-user=qmn203@nyu.edu
+#SBATCH --output=slurm_%j.out
+
+cd /scratch/$USER/DETM
+overlay_ext3=/scratch/qmn203/DETM/overlay-5GB-200K.ext3
+singularity \
+exec --nv --overlay $overlay_ext3 \
+/scratch/work/public/singularity/cuda11.0-cudnn8-devel-ubuntu18.04.sif /bin/bash \
+-c "source /ext3/env.sh; \
+conda activate detm; \
+python main.py"
+```
+to submit:
+```
+sbatch slurm.s
+```
+check the status of the job, and job ID:
+```
+squeue -u yourusername
+```
+check the result:
+```
+cat slurm_jobid.out
+```
 
