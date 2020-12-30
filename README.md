@@ -45,7 +45,8 @@ python data_undebates.py
 ```
 python main.py
 ``` 
-(all setup and models settings are on top of the file)
+(all setup and models settings are on top of the file).
+
 More instruction for running on a cluster using CUDA is [here](https://github.com/quynhneo/detm-arxiv/blob/master/docs/singularity_slurm.md)
 ## Plot the results
 ```
