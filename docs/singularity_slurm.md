@@ -7,14 +7,14 @@ For general users, the prerequisites are:
 
 ## To setup conda environment with Sigularity and overlay images
 in a log-in node:
-cd to DETM clone directory
+`cd <DETM directory>`
 
-Copy the proper gzipped overlay images from `/scratch/work/public/overlay-fs-ext3`, `overlay-5GB-200K.ext3.gz` is good enough for most conda enviorment, it has 5GB free space inside and is able to hold 200K files
+Copy the proper gzipped overlay images from `/scratch/work/public/overlay-fs-ext3`, `overlay-5GB-200K.ext3.gz` is good enough for most conda environment, it has 5GB free space inside and is able to hold 200K files
 ```
 cp -rp /scratch/work/public/overlay-fs-ext3/overlay-5GB-200K.ext3.gz .
 gunzip overlay-5GB-200K.ext3.gz
 ```
-Choose proper Singualrity images. For PyTorch, use
+Choose a proper singualrity image. For PyTorch, use
 
 `/scratch/work/public/singularity/cuda11.0-cudnn8-devel-ubuntu18.04.sif`
 
