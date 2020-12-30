@@ -1,9 +1,9 @@
-# Instruction for running DETM/main.py on HPC cluster with CUDA, slurm and singularity
-This guide specially applicable for the Greene HPC Cluster at New York University, but should be generally applicable for HPC clusters.
-For general users, the prerequisites are:
-- Having access to a cluster using slurm 
-- The cluster has singularity container installed
-- Have singularity images and overlay files prebuilt 
+# Instruction for running DETM on HPC cluster with CUDA, slurm and singularity
+This guide specially applicable for the Greene HPC Cluster of New York University, but should be generally applicable for HPC clusters.
+For general HPC users, the prerequisites are:
+- Having access to a cluster 
+- The cluster uses Singularity container 
+- Having singularity images and overlay files prebuilt 
 
 ## To setup conda environment with Sigularity and overlay images
 in a log-in node:
