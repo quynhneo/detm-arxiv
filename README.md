@@ -27,6 +27,11 @@ I have made some changes to because of runtime errors, no change to the model so
 ```
 git clone https://github.com/quynhneo/DETM
 ```
+The environtment could be set up by pip or conda, for example, using conda:
+```
+conda create --name detm --file requirements.txt 
+conda activate detm
+```
 
 ## Preprocess text data 
 ```
