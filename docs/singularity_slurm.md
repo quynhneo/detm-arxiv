@@ -1,4 +1,4 @@
-# Instruction for running DETM/main.py on HPC cluster with slurm and singularity
+# Instruction for running DETM/main.py on HPC cluster with CUDA, slurm and singularity
 This guide specially applicable for the Greene HPC Cluster at New York University, but should be generally applicable for HPC clusters.
 For general users, the prerequisites are:
 - Having access to a cluster using slurm 
