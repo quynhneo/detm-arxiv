@@ -20,9 +20,8 @@ Modify  path to  `arxiv-metadata-oai-snapshot.json` in `word2vec/run_w2v.py` and
 python word2vec/run_w2v.py
 ```
 
-This will: read in abstracts, remove punctuations, remove stop words listed in [`word2vec/stops.txt`](https://github.com/quynhneo/detm-arxiv/blob/master/word2vec/stops.txt), remove words that appear in less than 30 abstracts, and words appear in more than 70% of abstracts, and produces vector representations of all the words (default embedding dimension = 300), and save as embed.txt. The process takes about 10 minutes for 150,000 abstracts. 
+This will: read in abstracts, remove punctuations, remove stop words listed in [`word2vec/stops.txt`](https://github.com/quynhneo/detm-arxiv/blob/master/word2vec/stops.txt), remove words that appear in less than 30 abstracts, and words appear in more than 70% of abstracts, and produces vector representations of all the words (default embedding dimension = 300) using original settings from [Mikolov 2013 NIPS paper](https://arxiv.org/pdf/1310.4546.pdf), and save as embed.txt. The process takes about 10 minutes for 150,000 abstracts. 
 
-More on word embedding is available in this paper: https://arxiv.org/pdf/1310.4546.pdf
 ## Clone my fork of the original [Dynamic Embedded Topic Modeling](https://github.com/adjidieng/DETM)
 I have made some changes to because of runtime errors, no change to the model so far
 ```
