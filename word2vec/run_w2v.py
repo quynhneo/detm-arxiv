@@ -42,7 +42,7 @@ def lemmatize_stemming(token):
     return stemmer.stem(WordNetLemmatizer().lemmatize(token, pos=get_wordnet_pos(token)))
 
 
-def preprocess(document):
+def preprocess_(document):
     """ tokenization, remove stopwords and words with less than 3 characters
      INPUT: a document
      OUTPUT: a list of token"""
@@ -55,6 +55,29 @@ def preprocess(document):
         if token not in gensim.parsing.preprocessing.STOPWORDS:  # remove stop words from a list
             #  result.append(lemmatize_stemming(token))
             result.append(token)
+    return result
+
+
+def preprocess(document):
+    """ tokenize, lower case,
+    remove punctuation: '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~', and new line character
+    latex expressions are not processed
+    hyphens (e.g. kaluza-klein), and numbers (e.g. 3D), and accent are allowed
+    remove stopwords and words with less than 1 characters
+    INPUT: a string
+    OUTPUT: a list of token"""
+    result = []
+
+    lemma = WordNetLemmatizer()
+
+    print('removing punctuation...')
+    for token in document.split():
+        token = token.lower().replace("’", "").replace("'", "").replace("\n", " ").translate(
+            str.maketrans('', '', '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~'))
+        #token = lemma.lemmatize(token)
+        if len(token) > 1 and token.islower():
+            result.append(token)
+
     return result
 
 
@@ -125,24 +148,14 @@ if __name__ == '__main__':
     meta_data_file = '../../arxiv-metadata-oai-snapshot.json'
     all_docs_ini = read_data(meta_data_file, 'hep-ph')  # read all abstracts in hep-ph
 
-    # lower case, remove punctuation: '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~', and new line character
-    # latex expressions are not processed
-    # hyphens (e.g. kaluza-klein), and numbers (e.g. 3D), and accent are allowed
-    print('removing punctuation...')
-    all_docs_ini = [[w.lower().replace("’", "").replace("'", "").replace("\n", " ").translate(
-        str.maketrans('', '', '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~')) for w in all_docs_ini[doc_num].split()] for doc_num in
-            range(len(all_docs_ini))]
-
-    # filter out single character, return a list of list of tokens. each document is a list of token
-    list_of_list = [[w for w in all_docs_ini[doc_num] if len(w) > 1] for doc_num in range(len(all_docs_ini))]
-
-    del all_docs_ini
-
     # using gensim preprocessing
     # print('preprocessing')
-    # print('number of cpus: ', multiprocessing.cpu_count())
-    # pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
-    # list_of_doc = pool.map(preprocess, all_docs_ini)
+    print('number of cpus: ', multiprocessing.cpu_count())
+    pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
+    list_of_list = pool.map(preprocess, all_docs_ini)
+
+    print('break')
+    del all_docs_ini
 
     #  get a dictionary: key: integer id, value: word (str)
     print('getting dictionary')
