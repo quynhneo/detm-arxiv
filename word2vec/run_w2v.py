@@ -1,6 +1,6 @@
 import sys
 import multiprocessing
-from itertools import product
+from itertools import repeat
 import nltk
 import gensim
 from gensim.models import Word2Vec
@@ -58,7 +58,7 @@ def preprocess_(document):
     return result
 
 
-def preprocess(document):
+def preprocess(document, stopwords):
     """ tokenize, lower case,
     remove punctuation: '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~', and new line character
     latex expressions are not processed
@@ -70,12 +70,11 @@ def preprocess(document):
 
     lemma = WordNetLemmatizer()
 
-    print('removing punctuation...')
     for token in document.split():
         token = token.lower().replace("’", "").replace("'", "").replace("\n", " ").translate(
             str.maketrans('', '', '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~'))
         #token = lemma.lemmatize(token)
-        if len(token) > 1 and token.islower():
+        if len(token) > 1 and token.islower() and token not in stopwords:
             result.append(token)
 
     return result
@@ -152,7 +151,7 @@ if __name__ == '__main__':
     # print('preprocessing')
     print('number of cpus: ', multiprocessing.cpu_count())
     pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
-    list_of_list = pool.map(preprocess, all_docs_ini)
+    list_of_list = pool.starmap(preprocess, zip(all_docs_ini, repeat(stops)))
 
     print('break')
     del all_docs_ini
@@ -171,7 +170,7 @@ if __name__ == '__main__':
 
     print('apply filters')
     # for each document in the list of document, select only words in the dictionary, and not in list of stopwords
-    list_of_doc_filtered = [[word for word in doc if word in dictionary.token2id if word not in stops]
+    list_of_doc_filtered = [[word for word in doc if word in dictionary.token2id]
                             for doc in list_of_list]
 
     del dictionary
