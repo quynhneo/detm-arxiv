@@ -48,8 +48,8 @@ def preprocess(document):
      OUTPUT: a list of token"""
     result = []
 
-    for token in gensim.utils.simple_preprocess(document, min_len=3):
-        # This lower cases, de-accents (optional), filter words shorter than 3 chars
+    for token in gensim.utils.simple_preprocess(document, min_len=2):
+        # This lower cases, de-accents (optional), filter words shorter than 2 chars
         # and TOKENIZE: remove number
         # the output are final tokens = unicode strings
         if token not in gensim.parsing.preprocessing.STOPWORDS:  # remove stop words from a list
@@ -121,6 +121,7 @@ if __name__ == '__main__':
     all_docs_ini = read_data(meta_data_file, 'hep-ph')  # read all abstracts in hep-ph
 
     # Remove punctuation, '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', numeric, and new line character
+    # latex expressions are not processed
     print('removing punctuation...')
     all_docs_ini = [[w.lower().replace("’", " ").replace("'", " ").replace("\n", " ").translate(
         str.maketrans('', '', string.punctuation + "0123456789")) for w in all_docs_ini[doc].split()] for doc in
