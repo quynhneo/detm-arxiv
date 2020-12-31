@@ -20,7 +20,7 @@ Modify  path to  `arxiv-metadata-oai-snapshot.json` in `word2vec/run_w2v.py` and
 python word2vec/run_w2v.py
 ```
 
-This will take all words from abstracts, apply nlp processing (remove punctuations, stop words, remove rare words, etc -- see in code) and produces vector representations of all the words (default embedding dimension = 300), and save as embed.txt. The process takes about 10 minutes for 150,000 abstract. 
+This will take all words from abstracts, apply nlp processing (remove punctuations, stop words (see the list in [`word2vec/stops.txt`](https://github.com/quynhneo/detm-arxiv/blob/master/word2vec/stops.txt)), remove rare words, etc -- see in code) and produces vector representations of all the words (default embedding dimension = 300), and save as embed.txt. The process takes about 10 minutes for 150,000 abstract. 
 
 More on word embedding is available in this paper: https://arxiv.org/pdf/1310.4546.pdf
 ## Clone my fork of the original [Dynamic Embedded Topic Modeling](https://github.com/adjidieng/DETM)
