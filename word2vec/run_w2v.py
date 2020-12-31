@@ -48,51 +48,49 @@ def preprocess(document):
     result = []
 
     for token in gensim.utils.simple_preprocess(document, min_len=3):
-        # This lower cases, tokenizes, de-accents (optional). also remove number, punctuation, and some stop words
+        # This lower cases, de-accents (optional), filter words shorter than 3 chars
+        # and TOKENIZE: remove number
         # the output are final tokens = unicode strings
         if token not in gensim.parsing.preprocessing.STOPWORDS:  # remove stop words from a list
             #  result.append(lemmatize_stemming(token))
             result.append(token)
     return result
 
-# word appears more than 70% of document?
-# word appears in less than 30 document? (un debate)
-# parallel
 
-
-def read_data(meta_data_file):
+def read_data(json_file):
     # Read raw data
     print('reading raw data...')
 
-    file =  open(meta_data_file, 'r')
+    file = open(json_file, 'r')
     line_count = 0
-    all_docs_ini = []
+    all_docs = []
     for line in file:  # 1793457 line for the current file
-#        if line_count > 1000: # uncomment this to do quick test run
-#             break
+        # if line_count > 1000: # uncomment this to do quick test run
+        #     break
         try:
-            #line_view = json.loads(file.readline())  # view object of the json line
+            # line_view = json.loads(file.readline())  # view object of the json line
             line_view = json.loads(line)  # view object of the json line
-            #print(line_view['update_date'][0:4])
-            #print(line_view['abstract'])
+            # print(line_view['update_date'][0:4])
+            # print(line_view['abstract'])
         except:
             print('bad line', line_count) # 896728
             print(line_view)
             line_count += 1
             continue
 
-        all_docs_ini.append(line_view['abstract'])  # list of document strings,  ["it is indeed ...", ...]
+        all_docs.append(line_view['abstract'])  # list of document strings,  ["it is indeed ...", ...]
 
         if line_count == 999:
             print(line_count)
         line_count += 1
-        #if line_count >10:
+        # if line_count >10:
         #    break
-    #num_lines = sum(1 for line in file)
+    # num_lines = sum(1 for line in file)
     print("number of line is : ", line_count)
     file.close()
-    return all_docs_ini
+    return all_docs
 
+# ------for reading from csv file ------
 
 # data = pd.read_csv('../../data_undebates_kaggle/un-general-debates.csv')
 # print('data shape:', data.shape)
@@ -111,7 +109,8 @@ def read_data(meta_data_file):
 # print(words)
 #
 # print('processed: \n', preprocess(doc_sample))
-#
+
+
 def filter_extremes(doc_list: List[List[str]], to_keep_dict: List[str]) -> List[List[str]]:
     return [[w for w in a_doc if w in to_keep_dict] for a_doc in doc_list]
 
@@ -121,8 +120,8 @@ if __name__ == '__main__':
     all_docs_ini = read_data(meta_data_file)
 
     print('preprocessing')
-    print('number of cpus: ', multiprocessing.cpu_count() )
-    pool = multiprocessing.Pool(processes= multiprocessing.cpu_count() )
+    print('number of cpus: ', multiprocessing.cpu_count())
+    pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
     list_of_doc = pool.map(preprocess, all_docs_ini)
 
     # list_of_doc = list(map(preprocess, all_docs_ini))  # list of doc, like 'sentences' in gensim documentation
@@ -157,7 +156,7 @@ if __name__ == '__main__':
     print('running word2vec')
     model = Word2Vec(list_of_doc_filtered, size=EMB_DIM, window=15, min_count=5, negative=15, iter=10,
                      workers=multiprocessing.cpu_count(), sg=1, hs=1, sample=0.00001)
-    #  setting from original word2vec paper
+    #  setting from original word2vec paper (Mikolov 2013 NIPS)
     #  min_count (int, optional): Ignores all words with total frequency lower than this.
     #  sg: skip gram (vs bow)
     #  hs: hierarchical softmax
@@ -165,8 +164,8 @@ if __name__ == '__main__':
 
     model.save('w2v.model')
     w2v_out = model.wv
-    w2v_out.vectors.shape  # number of words x embedded dimension
-    w2v_out.vocab
+    # w2v_out.vectors.shape  # number of words x embedded dimension
+    # w2v_out.vocab
 
     with open("embed.txt","w") as outputfile:
         for word, vec in zip(w2v_out.vocab, w2v_out.vectors):
