@@ -35,9 +35,9 @@ conda activate detm
 ```
 
 ## Preprocess text data 
-Modify  path to  `arxiv-metadata-oai-snapshot.json` in `data_undebates.py` and run:
+Modify  path to  `arxiv-metadata-oai-snapshot.json` in `scripts/data_undebates.py` and run:
 ```
-python data_undebates.py
+python scripts/data_undebates.py
 ```
 
 ## Run Dynamic Embedded Topic Modeling 
@@ -48,10 +48,13 @@ python main.py
 (all setup and models settings are on top of the file).
 
 More instruction for running on a cluster using CUDA is [here](https://github.com/quynhneo/detm-arxiv/blob/master/docs/singularity_slurm.md)
+
+Output will be 3 `.mat` files in `results`. 
 ## Plot the results
+Edit `beta_file` in `plot_word_evolution.py` to be the path to the file ending in `_beta` in `results` and run:
 ```
 python plot_word_evolution.py 
 ```
-(edit path to saved model `beta_file` on top)
+
 
 **A very preliminary** result, evolution of word probability across time for eight different topics is shown in the [.png file](https://github.com/quynhneo/detm-arxiv/blob/master/detm_un_K_50_Htheta_800_Optim_adam_Clip_0.0_ThetaAct_relu_Lr_0.005_Bsz_1000_RhoSize_300_L_3_minDF_100_trainEmbeddings_1_beta.png). A lot more pruning and tuning to be done. Currently, the run time is too long, and the text has to be preprocessed more (for example the group of words including  'abstract','introduction','conclusion','method'... is learned as a topic because they always appear together)  
