@@ -117,7 +117,7 @@ def filter_extremes(doc_list: List[List[str]], to_keep_dict: List[str]) -> List[
 
 
 if __name__ == '__main__':
-    meta_data_file = '../../arxiv-metadata-oai-snapshot.json'
+    meta_data_file = '../arxiv-metadata-oai-snapshot.json'
     all_docs_ini = read_data(meta_data_file)
 
     print('preprocessing')
@@ -130,11 +130,15 @@ if __name__ == '__main__':
     #  get a dictionary: key: integer id, value: word (str)
     print('getting dictionary')
     dictionary = gensim.corpora.Dictionary(list_of_doc)
-    print('getting non-extremes')
-    dictionary.filter_extremes(no_below=30, no_above=0.7)  # list of none-extreme words Dieng's setting
+    # dictionary encapsulates the mapping between normalized words and their integer ids.
+    print('filter out extremes frequencies')
+    dictionary.filter_extremes(no_below=30, no_above=0.7)  # list of none-extreme words -- Dieng's setting
     #  apply filter to the list of doc
+    #  no_below: minimum document frequency (int)
+    #  no_above: maximum document frequency (float [0,1])
     print('apply filters')
     list_of_doc_filtered = [[word for word in doc if word in dictionary.token2id] for doc in list_of_doc]
+    # for each document in the list of document, select only words in the dictionary
     # list_of_doc_filtered  = pool.starmap(filter_extremes, product(list_of_doc, dictionary.token2id ,repeat=1))
     del dictionary
     del list_of_doc
@@ -154,16 +158,16 @@ if __name__ == '__main__':
     model = Word2Vec(list_of_doc_filtered, size=EMB_DIM, window=15, min_count=5, negative=15, iter=10,
                      workers=multiprocessing.cpu_count(), sg=1, hs=1, sample=0.00001)
     #  setting from original word2vec paper
-    #  min_count (int, optional) – Ignores all words with total frequency lower than this.
-    #  sg skip gram
-    #  hs hierarchical softmax
-    #  sample subsampling threshold (high frequency are sampled less)
+    #  min_count (int, optional): Ignores all words with total frequency lower than this.
+    #  sg: skip gram (vs bow)
+    #  hs: hierarchical softmax
+    #  sample: subsampling threshold (high frequency are sampled less)
 
     model.save('w2v.model')
     w2v_out = model.wv
-    w2v_out.vectors.shape # number of words x embedded dimension
+    w2v_out.vectors.shape  # number of words x embedded dimension
     w2v_out.vocab
 
     with open("embed.txt","w") as outputfile:
         for word, vec in zip(w2v_out.vocab, w2v_out.vectors):
-            print(word, *vec, sep=" ",file=outputfile )
+            print(word, *vec, sep=" ", file=outputfile)
