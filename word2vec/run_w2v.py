@@ -26,7 +26,7 @@ nltk.download('averaged_perceptron_tagger')
 start_time = timeit.default_timer()
 
 def get_wordnet_pos(tok):
-    """Map POS tag to first character lemmatize() accepts"""
+    """Map Part Of Speech tag to first character lemmatize() accepts"""
     tag = nltk.pos_tag([tok])[0][1][0].upper()
     tag_dict = {"J": wordnet.ADJ,
                 "N": wordnet.NOUN,
@@ -58,14 +58,18 @@ def preprocess_(document):
     return result
 
 
-def preprocess(document, stopwords):
-    """ tokenize, lower case,
-    remove punctuation: '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~', and new line character
-    latex expressions are not processed
-    hyphens (e.g. kaluza-klein), and numbers (e.g. 3D), and accent are allowed
-    remove stopwords and words with less than 1 characters
+def preprocess(document: str, stopwords: List[str]) -> List[str]:
+    """
     INPUT: a string
-    OUTPUT: a list of token"""
+    OUTPUT: a list of token
+
+        tokenize, lower case,
+        remove punctuation: '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~', and new line character
+        remove stop words from provided list and words with less than 1 characters from document
+    note:
+        latex expressions are not processed
+        hyphens (e.g. kaluza-klein), and numbers (e.g. 3D), and accent are allowed
+    """
     result = []
 
     lemma = WordNetLemmatizer()
@@ -73,8 +77,9 @@ def preprocess(document, stopwords):
     for token in document.split():
         token = token.lower().replace("’", "").replace("'", "").replace("\n", " ").translate(
             str.maketrans('', '', '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~'))
-        #token = lemma.lemmatize(token)
+
         if len(token) > 1 and token.islower() and token not in stopwords:
+            token = lemma.lemmatize(token, pos=get_wordnet_pos(token))
             result.append(token)
 
     return result
@@ -169,15 +174,14 @@ if __name__ == '__main__':
 
     print('apply filters')
     # for each document in the list of document, select only words in the dictionary, and not in list of stopwords
-    # list_of_list_filtered = [[word for word in doc if word in dictionary.token2id] for doc in list_of_list]
     list_of_list_filtered = pool.starmap(rm_extremes, zip(list_of_list, repeat(dictionary.token2id)))
 
     print('break')
 
     del dictionary
     del list_of_list
-    # pool.close()
-    # pool.join()
+    pool.close()
+    pool.join()
 
     EMB_DIM = 300  # embedding dimension
 
@@ -200,5 +204,5 @@ if __name__ == '__main__':
         for word, vec in zip(w2v_out.vocab, w2v_out.vectors):
             print(word, *vec, sep=" ", file=out_put_file)
 
-stop_time = timeit.default_timer()
-print("run time {}".format((stop_time-start_time)/3600))
+    stop_time = timeit.default_timer()
+    print("run time {}".format((stop_time-start_time)/3600))
