@@ -11,14 +11,15 @@ Quynh M. Nguyen<sup> a, b</sup> and Kyle Cranmer<sup> a, c</sup>
 Running dynamic embedded topic modeling on abstracts of arxiv articles and discover how topics in STEM change in time. This is an implementation of [Dynamic Embedded Topic Modeling](https://github.com/adjidieng/DETM) by Adji B. Dieng, Francisco J. R. Ruiz, and David M. Blei of Columbia University. 
 
 ## Get the meta data, containing abstracts 
-Visit https://www.kaggle.com/Cornell-University/arxiv (json format)
+Visit https://www.kaggle.com/Cornell-University/arxiv to get `arxiv-metadata-oai-snapshot.json`.
 
 ## Generate embedding 
+Modify  path to  `arxiv-metadata-oai-snapshot.json` in `word2vec/run_w2v.py` and run:
   
 ```
 python word2vec/run_w2v.py
 ```
-  
+
 This will take all words from abstracts, apply nlp processing (remove stop words, remove rare words, etc) and produce vector representations of all the words (default embedding dimension = 300), and save as embed.txt.
 
 More on word embedding is available in this paper: https://arxiv.org/pdf/1310.4546.pdf
@@ -27,24 +28,33 @@ I have made some changes to because of runtime errors, no change to the model so
 ```
 git clone https://github.com/quynhneo/DETM
 ```
+The environtment could be set up by pip or conda, for example, using conda:
+```
+conda create --name detm --file requirements.txt 
+conda activate detm
+```
 
 ## Preprocess text data 
+Modify  path to  `arxiv-metadata-oai-snapshot.json` in `scripts/data_undebates.py` and run:
 ```
-python data_undebates.py
+python scripts/data_undebates.py
 ```
-(modify the path to json file appropriately)
 
 ## Run Dynamic Embedded Topic Modeling 
 
 ```
 python main.py
 ``` 
-(all setup and models settings are on top of the file)
+(all setup and models settings are on top of the file).
 
+More instruction for running on a cluster using CUDA is [here](https://github.com/quynhneo/detm-arxiv/blob/master/docs/singularity_slurm.md)
+
+Output will be 3 `.mat` files in `results`. 
 ## Plot the results
+Edit `beta_file` in `plot_word_evolution.py` to be the path to the file ending in `_beta` in `results` and run:
 ```
 python plot_word_evolution.py 
 ```
-(edit path to saved model `beta_file` on top)
+
 
 **A very preliminary** result, evolution of word probability across time for eight different topics is shown in the [.png file](https://github.com/quynhneo/detm-arxiv/blob/master/detm_un_K_50_Htheta_800_Optim_adam_Clip_0.0_ThetaAct_relu_Lr_0.005_Bsz_1000_RhoSize_300_L_3_minDF_100_trainEmbeddings_1_beta.png). A lot more pruning and tuning to be done. Currently, the run time is too long, and the text has to be preprocessed more (for example the group of words including  'abstract','introduction','conclusion','method'... is learned as a topic because they always appear together)  
