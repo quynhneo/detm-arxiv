@@ -38,7 +38,7 @@ Modify  path to  `arxiv-metadata-oai-snapshot.json` in `scripts/data_undebates.p
 ```
 python scripts/data_undebates.py
 ```
-This will take about 30 minutes for hep-ph category (150,000 abstracts) on a laptop. 
+This will take about 30 minutes for hep-ph category (150,000 abstracts) on a laptop. The output will be save in `script/split_paragraph_True`
 ## Run Dynamic Embedded Topic Modeling 
 
 ```
