@@ -11,6 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import operator
 import json
+import string
 
 
 from gensim.utils import simple_preprocess
@@ -57,14 +58,14 @@ def preprocess(document):
     return result
 
 
-def read_data(json_file):
+def read_data(json_file, category=None):
     # Read raw data
     print('reading raw data...')
 
     file = open(json_file, 'r')
     line_count = 0
     all_docs = []
-    for line in file:  # 1793457 line for the current file
+    for line in file:  # 1.7m
         # if line_count > 1000: # uncomment this to do quick test run
         #     break
         try:
@@ -77,15 +78,15 @@ def read_data(json_file):
             print(line_view)
             line_count += 1
             continue
+        if category is None:
+            all_docs.append(line_view['abstract'])  # list of document strings,  ["it is indeed ...", ...]
+            line_count += 1
+        elif category in line_view['categories']:  # select only 1 category
+            all_docs.append(line_view['abstract'])  # list of document strings,  ["it is indeed ...", ...]
+            line_count += 1
+            # if line_count >10:
+            #    break
 
-        all_docs.append(line_view['abstract'])  # list of document strings,  ["it is indeed ...", ...]
-
-        if line_count == 999:
-            print(line_count)
-        line_count += 1
-        # if line_count >10:
-        #    break
-    # num_lines = sum(1 for line in file)
     print("number of line is : ", line_count)
     file.close()
     return all_docs
@@ -116,8 +117,16 @@ def filter_extremes(doc_list: List[List[str]], to_keep_dict: List[str]) -> List[
 
 
 if __name__ == '__main__':
-    meta_data_file = '../arxiv-metadata-oai-snapshot.json'
-    all_docs_ini = read_data(meta_data_file)
+    meta_data_file = '../../arxiv-metadata-oai-snapshot.json'
+    all_docs_ini = read_data(meta_data_file, 'hep-ph')  # read all abstracts in hep-ph
+
+    # Remove punctuation, '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', numeric, and new line character
+    print('removing punctuation...')
+    all_docs_ini = [[w.lower().replace("’", " ").replace("'", " ").replace("\n", " ").translate(
+        str.maketrans('', '', string.punctuation + "0123456789")) for w in all_docs_ini[doc].split()] for doc in
+            range(len(all_docs_ini))]
+    all_docs_ini = [[w for w in all_docs_ini[doc] if len(w) > 1] for doc in range(len(all_docs_ini))]
+    all_docs_ini = [" ".join(all_docs_ini[doc]) for doc in range(len(all_docs_ini))]
 
     print('preprocessing')
     print('number of cpus: ', multiprocessing.cpu_count())
