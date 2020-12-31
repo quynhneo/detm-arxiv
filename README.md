@@ -10,8 +10,8 @@ Quynh M. Nguyen<sup> a, b</sup> and Kyle Cranmer<sup> a, c</sup>
 ## Project description
 Running dynamic embedded topic modeling on abstracts of arxiv articles and discover how topics in STEM change in time. This is an implementation of [Dynamic Embedded Topic Modeling](https://github.com/adjidieng/DETM) by Adji B. Dieng, Francisco J. R. Ruiz, and David M. Blei of Columbia University. 
 
-## Get the meta data, containing abstracts 
-Visit https://www.kaggle.com/Cornell-University/arxiv to get `arxiv-metadata-oai-snapshot.json`.
+## Get the abstracts 
+Visit https://www.kaggle.com/Cornell-University/arxiv to get `arxiv-metadata-oai-snapshot.json` which contain about 2 millions records, each has a dozen of fields but we are interested in `abstract`, `categories`, and `update_date`.
 
 ## Generate embedding 
 Modify  path to  `arxiv-metadata-oai-snapshot.json` in `word2vec/run_w2v.py` and run:
@@ -20,7 +20,7 @@ Modify  path to  `arxiv-metadata-oai-snapshot.json` in `word2vec/run_w2v.py` and
 python word2vec/run_w2v.py
 ```
 
-This will: read in abstracts, remove punctuations, remove stop words listed in [`word2vec/stops.txt`](https://github.com/quynhneo/detm-arxiv/blob/master/word2vec/stops.txt), remove words that appear in less than 30 abstracts, and words appear in more than 70% of abstracts, and produces vector representations of all the words (default embedding dimension = 300) using original settings from [Mikolov 2013 NIPS paper](https://arxiv.org/pdf/1310.4546.pdf), and save as embeddings.txt. The process takes about 10 minutes per 150,000 abstracts on a laptop. 
+This will: read in abstracts, remove punctuations, remove stop words listed in [`word2vec/stops.txt`](https://github.com/quynhneo/detm-arxiv/blob/master/word2vec/stops.txt), remove words that appear in less than 30 abstracts, and words appear in more than 70% of abstracts, and produces vector representations of all the words (default embedding dimension = 300) using original settings from [Mikolov 2013 NIPS paper](https://arxiv.org/pdf/1310.4546.pdf), and save as embeddings.txt. The process takes about an hour per 150,000 abstracts on a laptop. 
 
 ## Clone my fork of the original [Dynamic Embedded Topic Modeling](https://github.com/adjidieng/DETM)
 I have made some changes to because of runtime errors, no change to the model so far
