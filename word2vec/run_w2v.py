@@ -132,7 +132,7 @@ if __name__ == '__main__':
     dictionary = gensim.corpora.Dictionary(list_of_doc)
     # dictionary encapsulates the mapping between normalized words and their integer ids.
     print('filter out extremes frequencies')
-    dictionary.filter_extremes(no_below=30, no_above=0.7)  # list of none-extreme words -- Dieng's setting
+    dictionary.filter_extremes(no_below=30, no_above=0.7)  # dictionary of none-extreme words -- Dieng's setting
     #  apply filter to the list of doc
     #  no_below: minimum document frequency (int)
     #  no_above: maximum document frequency (float [0,1])
