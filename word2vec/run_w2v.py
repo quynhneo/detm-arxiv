@@ -117,56 +117,62 @@ def filter_extremes(doc_list: List[List[str]], to_keep_dict: List[str]) -> List[
 
 
 if __name__ == '__main__':
+    # Read stopwords
+    with open('stops.txt', 'r') as f:
+        stops = f.read().split('\n')
+
+    # read corpus
     meta_data_file = '../../arxiv-metadata-oai-snapshot.json'
     all_docs_ini = read_data(meta_data_file, 'hep-ph')  # read all abstracts in hep-ph
 
-    # Remove punctuation, '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', numeric, and new line character
+    # lower case, remove punctuation: '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~', and new line character
     # latex expressions are not processed
+    # hyphens (e.g. kaluza-klein), and numbers (e.g. 3D), and accent are allowed
     print('removing punctuation...')
     all_docs_ini = [[w.lower().replace("’", " ").replace("'", " ").replace("\n", " ").translate(
-        str.maketrans('', '', string.punctuation + "0123456789")) for w in all_docs_ini[doc].split()] for doc in
+        str.maketrans('', '', '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~')) for w in all_docs_ini[doc_num].split()] for doc_num in
             range(len(all_docs_ini))]
-    all_docs_ini = [[w for w in all_docs_ini[doc] if len(w) > 1] for doc in range(len(all_docs_ini))]
-    all_docs_ini = [" ".join(all_docs_ini[doc]) for doc in range(len(all_docs_ini))]
 
-    print('preprocessing')
-    print('number of cpus: ', multiprocessing.cpu_count())
-    pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
-    list_of_doc = pool.map(preprocess, all_docs_ini)
+    # filter out single character, return a list of list of tokens. each document is a list of token
+    list_of_list = [[w for w in all_docs_ini[doc_num] if len(w) > 1] for doc_num in range(len(all_docs_ini))]
 
-    # list_of_doc = list(map(preprocess, all_docs_ini))  # list of doc, like 'sentences' in gensim documentation
     del all_docs_ini
+
+    # using gensim preprocessing
+    # print('preprocessing')
+    # print('number of cpus: ', multiprocessing.cpu_count())
+    # pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
+    # list_of_doc = pool.map(preprocess, all_docs_ini)
+
     #  get a dictionary: key: integer id, value: word (str)
     print('getting dictionary')
-    dictionary = gensim.corpora.Dictionary(list_of_doc)
+    dictionary = gensim.corpora.Dictionary(list_of_list)
     # dictionary encapsulates the mapping between normalized words and their integer ids.
+
     print('filter out extremes frequencies')
-    dictionary.filter_extremes(no_below=30, no_above=0.7)  # dictionary of none-extreme words -- Dieng's setting
+    dictionary.filter_extremes(no_below=30, no_above=0.7)
+    #  dictionary of none-extreme words -- Dieng & Blei 2019 setting
     #  apply filter to the list of doc
     #  no_below: minimum document frequency (int)
     #  no_above: maximum document frequency (float [0,1])
-    print('apply filters')
-    list_of_doc_filtered = [[word for word in doc if word in dictionary.token2id] for doc in list_of_doc]
-    # for each document in the list of document, select only words in the dictionary
-    # list_of_doc_filtered  = pool.starmap(filter_extremes, product(list_of_doc, dictionary.token2id ,repeat=1))
-    del dictionary
-    del list_of_doc
-    pool.close()
-    pool.join()
-    #
-    #
 
-    # list_of_doc = []  # list of doc, like 'sentences' in gensim documentation
-    # for doc in data_text:
-    #     list_of_doc.append(preprocess(doc))
-    #
+    print('apply filters')
+    # for each document in the list of document, select only words in the dictionary, and not in list of stopwords
+    list_of_doc_filtered = [[word for word in doc if word in dictionary.token2id if word not in stops]
+                            for doc in list_of_list]
+
+    del dictionary
+    del list_of_list
+    # pool.close()
+    # pool.join()
+
     EMB_DIM = 300  # embedding dimension
 
-    # need to compare with Dieng's settings
+    # need to compare with Dieng & Blei 2019 settings
     print('running word2vec')
     model = Word2Vec(list_of_doc_filtered, size=EMB_DIM, window=15, min_count=5, negative=15, iter=10,
                      workers=multiprocessing.cpu_count(), sg=1, hs=1, sample=0.00001)
-    #  setting from original word2vec paper (Mikolov 2013 NIPS)
+    #  settings from original word2vec paper (Mikolov 2013 NIPS)
     #  min_count (int, optional): Ignores all words with total frequency lower than this.
     #  sg: skip gram (vs bow)
     #  hs: hierarchical softmax
@@ -177,6 +183,6 @@ if __name__ == '__main__':
     # w2v_out.vectors.shape  # number of words x embedded dimension
     # w2v_out.vocab
 
-    with open("embed.txt","w") as outputfile:
+    with open("embed.txt", "w") as out_put_file:
         for word, vec in zip(w2v_out.vocab, w2v_out.vectors):
-            print(word, *vec, sep=" ", file=outputfile)
+            print(word, *vec, sep=" ", file=out_put_file)
