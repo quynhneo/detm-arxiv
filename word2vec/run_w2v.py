@@ -134,8 +134,8 @@ def read_data(json_file, category=None):
 # print('processed: \n', preprocess(doc_sample))
 
 
-def filter_extremes(doc_list: List[List[str]], to_keep_dict: List[str]) -> List[List[str]]:
-    return [[w for w in a_doc if w in to_keep_dict] for a_doc in doc_list]
+def rm_extremes(doc: List[str], to_keep_dict: List[str]) -> List[str]:
+    return [w for w in doc if w in to_keep_dict]
 
 
 if __name__ == '__main__':
@@ -147,13 +147,12 @@ if __name__ == '__main__':
     meta_data_file = '../../arxiv-metadata-oai-snapshot.json'
     all_docs_ini = read_data(meta_data_file, 'hep-ph')  # read all abstracts in hep-ph
 
-    # using gensim preprocessing
-    # print('preprocessing')
+    print('preprocessing')
     print('number of cpus: ', multiprocessing.cpu_count())
     pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
     list_of_list = pool.starmap(preprocess, zip(all_docs_ini, repeat(stops)))
 
-    print('break')
+
     del all_docs_ini
 
     #  get a dictionary: key: integer id, value: word (str)
@@ -170,8 +169,10 @@ if __name__ == '__main__':
 
     print('apply filters')
     # for each document in the list of document, select only words in the dictionary, and not in list of stopwords
-    list_of_doc_filtered = [[word for word in doc if word in dictionary.token2id]
-                            for doc in list_of_list]
+    # list_of_list_filtered = [[word for word in doc if word in dictionary.token2id] for doc in list_of_list]
+    list_of_list_filtered = pool.starmap(rm_extremes, zip(list_of_list, repeat(dictionary.token2id)))
+
+    print('break')
 
     del dictionary
     del list_of_list
@@ -182,7 +183,7 @@ if __name__ == '__main__':
 
     # need to compare with Dieng & Blei 2019 settings
     print('running word2vec')
-    model = Word2Vec(list_of_doc_filtered, size=EMB_DIM, window=15, min_count=5, negative=15, iter=10,
+    model = Word2Vec(list_of_list_filtered, size=EMB_DIM, window=15, min_count=5, negative=15, iter=10,
                      workers=multiprocessing.cpu_count(), sg=1, hs=1, sample=0.00001)
     #  settings from original word2vec paper (Mikolov 2013 NIPS)
     #  min_count (int, optional): Ignores all words with total frequency lower than this.
