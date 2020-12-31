@@ -20,7 +20,7 @@ Modify  path to  `arxiv-metadata-oai-snapshot.json` in `word2vec/run_w2v.py` and
 python word2vec/run_w2v.py
 ```
 
-This will: read in abstracts, remove punctuations, remove stop words listed in [`word2vec/stops.txt`](https://github.com/quynhneo/detm-arxiv/blob/master/word2vec/stops.txt), remove words that appear in less than 30 abstracts, and words appear in more than 70% of abstracts, and produces vector representations of all the words (default embedding dimension = 300) using original settings from [Mikolov 2013 NIPS paper](https://arxiv.org/pdf/1310.4546.pdf), and save as embed.txt. The process takes about 10 minutes for hep-ph category (150,000 abstracts) on a laptop. 
+This will: read in abstracts, remove punctuations, remove stop words listed in [`word2vec/stops.txt`](https://github.com/quynhneo/detm-arxiv/blob/master/word2vec/stops.txt), remove words that appear in less than 30 abstracts, and words appear in more than 70% of abstracts, and produces vector representations of all the words (default embedding dimension = 300) using original settings from [Mikolov 2013 NIPS paper](https://arxiv.org/pdf/1310.4546.pdf), and save as embeddings.txt. The process takes about 10 minutes per 150,000 abstracts on a laptop. 
 
 ## Clone my fork of the original [Dynamic Embedded Topic Modeling](https://github.com/adjidieng/DETM)
 I have made some changes to because of runtime errors, no change to the model so far
@@ -38,13 +38,14 @@ Modify  path to  `arxiv-metadata-oai-snapshot.json` in `scripts/data_undebates.p
 ```
 python scripts/data_undebates.py
 ```
-This will take about 30 minutes for hep-ph category (150,000 abstracts) on a laptop. The output will be save in `script/split_paragraph_True`
+This will take about 5 minutes per 150,000 abstracts on a laptop. The output (`.mat` files) will be save in `script/split_paragraph_False/`
 ## Run Dynamic Embedded Topic Modeling 
+Modify paths to preprocess text data, and `embeddings.txt`, and other models settings are on top of the file, and run:
 
 ```
 python main.py
 ``` 
-All setup and models settings are on top of the file. This stage will take much longer and should be run with GPU (CPU mode is too slow even with a 16 cores)
+ This stage will take much longer and should be run with GPU (CPU mode is too slow even with a 16 cores)
 
 More instruction for running on a cluster using CUDA is [here](https://github.com/quynhneo/detm-arxiv/blob/master/docs/singularity_slurm.md)
 
