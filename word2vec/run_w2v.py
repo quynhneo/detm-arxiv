@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import operator
 import json
 import string
-
+import timeit
 
 from gensim.utils import simple_preprocess
 from gensim.parsing.preprocessing import STOPWORDS, preprocess_string, preprocess_documents, strip_punctuation, \
@@ -20,10 +20,10 @@ from gensim.parsing.preprocessing import STOPWORDS, preprocess_string, preproces
 from nltk.stem import WordNetLemmatizer, SnowballStemmer
 from nltk.stem.porter import *  # stemmer
 from nltk.corpus import wordnet
-
 nltk.download('wordnet')  # lexical database
 nltk.download('averaged_perceptron_tagger')
 
+start_time = timeit.default_timer()
 
 def get_wordnet_pos(tok):
     """Map POS tag to first character lemmatize() accepts"""
@@ -129,7 +129,7 @@ if __name__ == '__main__':
     # latex expressions are not processed
     # hyphens (e.g. kaluza-klein), and numbers (e.g. 3D), and accent are allowed
     print('removing punctuation...')
-    all_docs_ini = [[w.lower().replace("’", " ").replace("'", " ").replace("\n", " ").translate(
+    all_docs_ini = [[w.lower().replace("’", "").replace("'", "").replace("\n", " ").translate(
         str.maketrans('', '', '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~')) for w in all_docs_ini[doc_num].split()] for doc_num in
             range(len(all_docs_ini))]
 
@@ -183,6 +183,9 @@ if __name__ == '__main__':
     # w2v_out.vectors.shape  # number of words x embedded dimension
     # w2v_out.vocab
 
-    with open("embed.txt", "w") as out_put_file:
+    with open("embeddings.txt", "w") as out_put_file:
         for word, vec in zip(w2v_out.vocab, w2v_out.vectors):
             print(word, *vec, sep=" ", file=out_put_file)
+
+stop_time = timeit.default_timer()
+print("run time {}".format((stop_time-start_time)/3600))
