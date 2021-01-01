@@ -57,4 +57,8 @@ python plot_word_evolution.py
 ```
 
 
-**A preliminary** ![result](https://github.com/quynhneo/detm-arxiv/blob/master/detm_un_K_50_Htheta_800_Optim_adam_Clip_2.0_ThetaAct_relu_Lr_0.001_Bsz_200_RhoSize_300_L_4_minDF_30_trainEmbeddings_1_beta.png), evolution of word probability across time for eight different topics is shown in the [.png file](https://github.com/quynhneo/detm-arxiv/blob/master/detm_un_K_50_Htheta_800_Optim_adam_Clip_0.0_ThetaAct_relu_Lr_0.005_Bsz_1000_RhoSize_300_L_3_minDF_100_trainEmbeddings_1_beta.png). A lot more pruning and tuning to be done. Currently, the run time is too long, and the text has to be preprocessed more (for example the group of words including  'abstract','introduction','conclusion','method'... is learned as a topic because they always appear together)  
+## Preliminary results
+The plot below shows results for DETM on `hep-ph` (high energy physics phenomenology) category. Assuming there re 50 topics, the 6 most meaningful ones the selected manually. For each topics, probabilities of selected most probable words are plotted against time (2007-2020). 
+For example, topic 46 shows the increase in `higgs` coinciding with the discovery of Higgs boson in 2012.
+
+![result](https://github.com/quynhneo/detm-arxiv/blob/master/detm_un_K_50_Htheta_800_Optim_adam_Clip_2.0_ThetaAct_relu_Lr_0.001_Bsz_200_RhoSize_300_L_4_minDF_30_trainEmbeddings_1_beta.png).
