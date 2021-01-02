@@ -58,9 +58,9 @@ python plot_word_evolution.py
 
 
 ## Preliminary results
-The plot below shows results for DETM on `hep-ph` (high energy physics phenomenology) category. Assuming there are 50 topics, the 6 most meaningful ones the selected manually. For each topics, probabilities of selected most probable words are plotted against time (2007-2020). 
+The plot below shows results for DETM on `hep-ph` (high energy physics phenomenology) category. Assuming there are 50 topics, the 6 most meaningful ones were  manually. For each topics, probabilities of some top words are plotted against time (2007-2020). 
 For example, topic 46 shows the increase in `higgs` coinciding with the discovery of Higgs boson in 2012.
 
 ![result](https://github.com/quynhneo/detm-arxiv/blob/master/detm_un_K_50_Htheta_800_Optim_adam_Clip_2.0_ThetaAct_relu_Lr_0.001_Bsz_200_RhoSize_300_L_4_minDF_30_trainEmbeddings_1_beta.png).
 
-This is from running 400 epoches, on data of 150,000 abstracts. We use 4 RTX8000 GPUs and the runtime was 12 hours.
+The above plots are from running 400 epoches on data of 150,000 abstracts of `hep-ph`. We use 4 Nvidia RTX8000 GPUs and the runtime was 13 hours.
