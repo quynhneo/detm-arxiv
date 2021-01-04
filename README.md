@@ -45,7 +45,7 @@ Modify paths to preprocess text data, and `embeddings.txt`, and other models set
 ```
 python main.py
 ``` 
- This stage will take much longer and should be run with GPU (CPU mode is too slow even with a 16 cores)
+ This stage will take much longer and should be run with GPU (CPU mode is too slow even with a 16 cores node)
 
 More instruction for running on a cluster using CUDA is [here](https://github.com/quynhneo/detm-arxiv/blob/master/docs/singularity_slurm.md)
 
