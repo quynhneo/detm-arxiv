@@ -22,8 +22,8 @@ python word2vec/run_w2v.py
 
 This will read in abstracts, remove punctuations, remove stop words listed in [`word2vec/stops.txt`](https://github.com/quynhneo/detm-arxiv/blob/master/word2vec/stops.txt), remove rare words that appear in less than 30 abstracts, and words appear in more than 70% of abstracts, and produces vector representations of all the words left (default embedding dimension = 300) using original settings from [Mikolov 2013 NIPS paper](https://arxiv.org/pdf/1310.4546.pdf). The ressults are save as `embeddings.txt` where each line is a word following by 300 numbers. The process takes about an hour per 150,000 abstracts on a laptop. 
 
-## Clone our fork of the original repo
-We have made some changes to fix runtime errors, no change to the model in this fork:
+## Clone our [fork](https://github.com/quynhneo/DETM) of the original repo
+We have made some changes to fix runtime errors, match the setting in the paper, no change to the model in this fork:
 ```
 git clone https://github.com/quynhneo/DETM
 ```
@@ -34,14 +34,17 @@ conda activate detm
 ```
 
 ## Preprocess text data 
+This step will convert each abstract to a bag of words (bag of integer tokens to be exact), with timestamp for each abstract, split the data into train, validation, test. These will be stored in `.mat` files. It also create a list of words, the vocabulary of all the abstracts, stored in `vocab.txt`. This is just list of words, without vectors. The vectors will be taken from `embeddings.txt`. So ideally the two lists contain the same words, or `vocab` is a large subset of `embeddings`.
 Modify  path to  `arxiv-metadata-oai-snapshot.json` in `scripts/data_undebates.py` and run:
 ```
 python scripts/data_undebates.py
 ```
-This will take about 5 minutes per 150,000 abstracts on a laptop. The output (`.mat` files) will be save in `script/split_paragraph_False/`
+This will take about 5 minutes per 150,000 abstracts on a laptop. Using default settings, the output will be save in `script/split_paragraph_False/min_df_30`
 ## Run Dynamic Embedded Topic Modeling 
-Modify paths to preprocess text data, and `embeddings.txt`, and other models settings are on top of the file, and run:
-
+To run with all defaults settings, make changes in two lines:
+https://github.com/quynhneo/DETM/blob/master/main.py#L34: the parent folder of preprocessed data folder `min_df_30`. 
+https://github.com/quynhneo/DETM/blob/master/main.py#L35 : path to prefit embedding `embeddings.txt`.
+Run with all default settings:
 ```
 python main.py
 ``` 
