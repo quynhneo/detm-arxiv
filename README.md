@@ -39,10 +39,12 @@ Modify  path to  `arxiv-metadata-oai-snapshot.json` in `scripts/data_undebates.p
 ```
 python scripts/data_undebates.py
 ```
-This will take about 5 minutes per 150,000 abstracts on a laptop. The output will be save in `script/split_paragraph_False/`
+This will take about 5 minutes per 150,000 abstracts on a laptop. Using default settings, the output will be save in `script/split_paragraph_False/min_df_30`
 ## Run Dynamic Embedded Topic Modeling 
-Modify paths to preprocess text data, and `embeddings.txt`, and other models settings are on top of the file, and run:
-
+To run with all defaults settings, make changes in two lines:
+https://github.com/quynhneo/DETM/blob/master/main.py#L30: the parent folder of preprocessed data folder `min_df_30`. 
+https://github.com/quynhneo/DETM/blob/master/main.py#L32 : path to prefit embedding `embeddings.txt`.
+Run with all default settings:
 ```
 python main.py
 ``` 
