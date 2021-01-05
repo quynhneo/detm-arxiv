@@ -63,8 +63,9 @@ For example, topic 46 shows the increase in `higgs` coinciding with the discover
 
 ![result](https://github.com/quynhneo/detm-arxiv/blob/master/detm_un_K_50_Htheta_800_Optim_adam_Clip_2.0_ThetaAct_relu_Lr_0.001_Bsz_200_RhoSize_300_L_4_minDF_30_trainEmbeddings_1_beta.png)
 
-Tracking the word `diphoton`, its peak probability coincides with the [flurry of papers](https://en.wikipedia.org/wiki/750_GeV_diphoton_excess) around 2015-2016 (However it is dominated by other words in topic 3 and 46 which are not shown here).
+Tracking the word `diphoton`, its peak probability coincides with the [flurry of papers](https://en.wikipedia.org/wiki/750_GeV_diphoton_excess) on a possible discovery of new physics around 2015-2016, which turned out to be just a statistical fluke. 
 
 ![diphoton](https://github.com/quynhneo/detm-arxiv/blob/master/diphoton.png)
+(`diphoton` topic contribution is dominated by other words in topic 3 and 46 which are not shown here)
 
 The above plots are from running 400 epoches on data of 150,000 abstracts of `hep-ph`. We use 4 Nvidia RTX8000 GPUs and the runtime was 13 hours.
