@@ -60,7 +60,7 @@ def preprocess(document: str, stopwords: List[str]) -> List[str]:
 
     for token in document.split():
         token = token.lower().replace("’", "").replace("'", "").replace("\n", " ").translate(
-            str.maketrans('', '', '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~'))
+            str.maketrans('', '', '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~'))  # modified from python string.punctuation
 
         if len(token) > 1 and token.islower() and token not in stopwords:
             token = lemma.lemmatize(token, pos=get_wordnet_pos(token))  # plural-> singular, Verb-ing to verb, etc
@@ -70,7 +70,7 @@ def preprocess(document: str, stopwords: List[str]) -> List[str]:
     return result
 
 
-def read_data(json_file: json, category: str = None) -> List[str]:
+def read_meta_data(json_file: json, category: str = None) -> List[str]:
     """
     return a list of abstracts from the meta data file
     category: include all categories if not specified
@@ -110,4 +110,5 @@ def read_data(json_file: json, category: str = None) -> List[str]:
 
 
 def rm_extremes(doc: List[str], to_keep_dict: List[str]) -> List[str]:
+    """remove str element in doc if it's not also in to_keep_dict"""
     return [w for w in doc if w in to_keep_dict]

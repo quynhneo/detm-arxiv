@@ -1,12 +1,11 @@
 import multiprocessing
 from itertools import repeat
-import gensim
-from gensim.models import Word2Vec
-from typing import List
-
 import timeit
 
-from preprocess import read_data, preprocess, rm_extremes
+import gensim
+from gensim.models import Word2Vec
+
+from preprocess import read_meta_data, preprocess, rm_extremes
 
 start_time = timeit.default_timer()
 
@@ -38,13 +37,12 @@ if __name__ == '__main__':
 
     # read corpus
     meta_data_file = '../../arxiv-metadata-oai-snapshot.json'
-    all_docs_ini = read_data(meta_data_file, 'hep-ph')  # read all abstracts in hep-ph
+    all_docs_ini = read_meta_data(meta_data_file, 'hep-ph')  # read all abstracts in hep-ph
 
     print('preprocessing')
     print('number of cpus: ', multiprocessing.cpu_count())
     pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
     list_of_list = pool.starmap(preprocess, zip(all_docs_ini, repeat(stops)))
-
 
     del all_docs_ini
 
