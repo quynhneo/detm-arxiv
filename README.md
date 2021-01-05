@@ -42,8 +42,8 @@ python scripts/data_undebates.py
 This will take about 5 minutes per 150,000 abstracts on a laptop. Using default settings, the output will be save in `script/split_paragraph_False/min_df_30`
 ## Run Dynamic Embedded Topic Modeling 
 To run with all defaults settings, make changes in two lines:
-https://github.com/quynhneo/DETM/blob/master/main.py#L30: the parent folder of preprocessed data folder `min_df_30`. 
-https://github.com/quynhneo/DETM/blob/master/main.py#L32 : path to prefit embedding `embeddings.txt`.
+https://github.com/quynhneo/DETM/blob/master/main.py#L34: the parent folder of preprocessed data folder `min_df_30`. 
+https://github.com/quynhneo/DETM/blob/master/main.py#L35 : path to prefit embedding `embeddings.txt`.
 Run with all default settings:
 ```
 python main.py
