@@ -34,7 +34,7 @@ conda activate detm
 ```
 
 ## Preprocess text data 
-This step will convert each abstract to a bag of words (bag of integer tokens to be exact), with timestamp for each abstract, split the data into train, validation, test. These will be stored in `.mat` files. It also create a list of words, the vocabulary of all the abstracts, stored in `vocab.txt`. This is just list of words, without vectors. The vectors will be taken from `word2vec`. So ideally the two list are the same, or `vocab` is a large subset of `embeddings`.
+This step will convert each abstract to a bag of words (bag of integer tokens to be exact), with timestamp for each abstract, split the data into train, validation, test. These will be stored in `.mat` files. It also create a list of words, the vocabulary of all the abstracts, stored in `vocab.txt`. This is just list of words, without vectors. The vectors will be taken from `embeddings.txt`. So ideally the two lists contain the same words, or `vocab` is a large subset of `embeddings`.
 Modify  path to  `arxiv-metadata-oai-snapshot.json` in `scripts/data_undebates.py` and run:
 ```
 python scripts/data_undebates.py
