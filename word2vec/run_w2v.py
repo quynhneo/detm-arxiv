@@ -79,7 +79,8 @@ def preprocess(document: str, stopwords: List[str]) -> List[str]:
             str.maketrans('', '', '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~'))
 
         if len(token) > 1 and token.islower() and token not in stopwords:
-            token = lemma.lemmatize(token, pos=get_wordnet_pos(token))
+            token = lemma.lemmatize(token, pos=get_wordnet_pos(token))  # plural-> singular, Verb-ing to verb, etc
+            # doesn't work for all words
             result.append(token)
 
     return result
