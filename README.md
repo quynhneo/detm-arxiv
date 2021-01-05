@@ -34,11 +34,12 @@ conda activate detm
 ```
 
 ## Preprocess text data 
+This step will convert each abstract to a bag of words (bag of integer tokens to be exact), with timestamp for each abstract, split the data into train, validation, test. These will be stored in `.mat` files. It also create a list of words, the vocabulary of all the abstracts, stored in `vocab.txt`. This is just list of words, without vectors. The vectors will be taken from `word2vec`. So ideally the two list are the same, or `vocab` is a large subset of `embeddings`.
 Modify  path to  `arxiv-metadata-oai-snapshot.json` in `scripts/data_undebates.py` and run:
 ```
 python scripts/data_undebates.py
 ```
-This will take about 5 minutes per 150,000 abstracts on a laptop. The output (`.mat` files) will be save in `script/split_paragraph_False/`
+This will take about 5 minutes per 150,000 abstracts on a laptop. The output will be save in `script/split_paragraph_False/`
 ## Run Dynamic Embedded Topic Modeling 
 Modify paths to preprocess text data, and `embeddings.txt`, and other models settings are on top of the file, and run:
 
