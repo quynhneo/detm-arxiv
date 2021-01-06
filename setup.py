@@ -1,6 +1,6 @@
 from setuptools import setup
 
-setup(name='detm-arxiv',
+setup(name='detmarxiv',
       version='0.1',
       description='tools to get word embedding from arxiv.org abstracts',
       url='https://github.com/quynhneo/detm-arxiv',
