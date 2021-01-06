@@ -116,7 +116,8 @@ def rm_unlisted_words(doc: List[str], whitelist: List[str]) -> List[str]:
     return [w for w in doc if w in whitelist]
 
 
-def frequency_filter(list_o_list: List[List[str]], min_docs: int, max_portion: float) -> List[List[str]]:
+def frequency_filter(list_o_list: List[List[str]], min_docs: int,
+                     max_portion: float, num_workers=multiprocessing.cpu_count()) -> List[List[str]]:
     """filter out words that appear in less than min_docs of document and more than max_portion of documents"""
     #  get a dictionary: key: integer id, value: word (str)
     print('getting dictionary')
@@ -130,8 +131,8 @@ def frequency_filter(list_o_list: List[List[str]], min_docs: int, max_portion: f
     #  no_below: minimum document frequency (int)
     #  no_above: maximum document frequency (float [0,1])
 
-    print('number of cpus: ', multiprocessing.cpu_count())
-    pool_ = multiprocessing.Pool(processes=multiprocessing.cpu_count())
+    print('number of cores: ', multiprocessing.cpu_count())
+    pool_ = multiprocessing.Pool(processes=num_workers)
 
     print('apply filters')
     # for each document in the list of document, select only words in the dictionary, and not in list of stopwords
@@ -139,4 +140,5 @@ def frequency_filter(list_o_list: List[List[str]], min_docs: int, max_portion: f
 
     pool_.close()
     pool_.join()
+
     return list_o_list_filtered

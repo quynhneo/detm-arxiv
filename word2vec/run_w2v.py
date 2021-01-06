@@ -48,7 +48,7 @@ if __name__ == '__main__':
     pool.join()
     del all_docs_ini
 
-    list_of_list_filtered = frequency_filter(list_of_list, 30, 0.7)
+    list_of_list_filtered = frequency_filter(list_of_list, 30, 0.7, multiprocessing.cpu_count())
 
     print('break')
     del list_of_list
