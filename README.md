@@ -14,10 +14,10 @@ Running dynamic embedded topic modeling on abstracts of arxiv articles and disco
 Visit https://www.kaggle.com/Cornell-University/arxiv to get `arxiv-metadata-oai-snapshot.json` which contains about 2 million records, each has a dozen of fields, and we are interested in `abstract`, `categories`, and `update_date`.
 
 ## Generate embedding with `word2vec` 
-Modify the path to `arxiv-metadata-oai-snapshot.json` in `arxivtools/run_w2v.py` and run:
+Modify the path to `arxiv-metadata-oai-snapshot.json` in `arxivtools/word2vec.py` and run:
   
 ```
-python arxivtools/run_w2v.py
+python arxivtools/word2vec.py
 ```
 
 This will read in abstracts, remove punctuations, remove stop words listed in [`arxivtools/stops.txt`](https://github.com/quynhneo/detm-arxiv/blob/master/word2vec/stops.txt), remove rare words that appear in less than 30 abstracts, and words appear in more than 70% of abstracts, and produces vector representations of all the words left (default embedding dimension = 300) using original settings from [Mikolov 2013 NIPS paper](https://arxiv.org/pdf/1310.4546.pdf). The ressults are save as `embeddings.txt` where each line is a word following by 300 numbers. The process takes about an hour per 150,000 abstracts on a laptop. 
