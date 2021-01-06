@@ -7,5 +7,5 @@ setup(name='detm-arxiv',
       author='Quynh M. Nguyen',
       author_email='qmn203@nyu.edu',
       license='MIT',
-      packages=[word2vec],
+      packages=['word2vec'],
       zip_safe=False)
