@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
     # read corpus
     meta_data_file = '../../arxiv-metadata-oai-snapshot.json'
-    all_docs_ini,_ = read_meta_data(meta_data_file, 'hep-ph')  # read all abstracts in hep-ph
+    all_docs_ini, _ = read_meta_data(meta_data_file, 'hep-ph')  # read all abstracts in hep-ph
 
     print('preprocessing')
     print('number of cpus: ', multiprocessing.cpu_count())
