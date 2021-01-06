@@ -88,8 +88,8 @@ def read_meta_data(json_file: json, category: str = None) -> (List[str], List[st
     all_timestamps = []
     all_docs = []
     for line in file:  # 1.7m
-        if line_count > 5000: # uncomment this to do quick test run
-            break
+        #if line_count > 5000: # uncomment this to do quick test run
+        #    break
         try:
             # line_view = json.loads(file.readline())  # view object of the json line
             line_view = json.loads(line)  # view object of the json line
