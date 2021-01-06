@@ -72,9 +72,11 @@ def preprocess(document: str, stopwords: List[str]) -> List[str]:
     return result
 
 
-def read_meta_data(json_file: json, category: str = None) -> List[str]:
+def read_meta_data(json_file: json, category: str = None) -> (List[str], List[str]):
     """
-    return a list of abstracts from the meta data file
+    return
+    a list of abstracts (str) from the meta data file
+    a list of year in str
     category: include all categories if not specified
 
     """
@@ -83,6 +85,7 @@ def read_meta_data(json_file: json, category: str = None) -> List[str]:
 
     file = open(json_file, 'r')
     line_count = 0
+    all_timestamps = []
     all_docs = []
     for line in file:  # 1.7m
         if line_count > 5000: # uncomment this to do quick test run
@@ -98,9 +101,12 @@ def read_meta_data(json_file: json, category: str = None) -> List[str]:
             line_count += 1
             continue
         if category is None:
+            all_timestamps.append(line_view['update_date'][0:4])  # get the year only in yyyy-mm-dd format
+            # return list of year string ['1989','1989',...]
             all_docs.append(line_view['abstract'])  # list of document strings,  ["it is indeed ...", ...]
             line_count += 1
         elif category in line_view['categories']:  # select only 1 category
+            all_timestamps.append(line_view['update_date'][0:4])  # get the year only in yyyy-mm-dd format
             all_docs.append(line_view['abstract'])  # list of document strings,  ["it is indeed ...", ...]
             line_count += 1
             # if line_count >10:
@@ -108,7 +114,7 @@ def read_meta_data(json_file: json, category: str = None) -> List[str]:
 
     print("number of line is : ", line_count)
     file.close()
-    return all_docs
+    return all_docs, all_timestamps
 
 
 def rm_unlisted_words(doc: List[str], whitelist: List[str]) -> List[str]:
