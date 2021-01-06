@@ -22,8 +22,8 @@ python arxivtools/word2vec.py
 
 This will read in abstracts, remove punctuations, remove stop words listed in [`arxivtools/stops.txt`](https://github.com/quynhneo/detm-arxiv/blob/master/word2vec/stops.txt), remove rare words that appear in less than 30 abstracts, and words appear in more than 70% of abstracts, and produces vector representations of all the words left (default embedding dimension = 300) using original settings from [Mikolov 2013 NIPS paper](https://arxiv.org/pdf/1310.4546.pdf). The ressults are save as `embeddings.txt` where each line is a word following by 300 numbers. The process takes about an hour per 150,000 abstracts on a laptop. 
 
-## Clone our [fork](https://github.com/quynhneo/DETM) of the original repo
-We have made some changes to fix runtime errors, match the setting in the paper, no change to the model in this fork:
+## Clone our [fork](https://github.com/quynhneo/DETM) of the original DETM repository
+This is the main repo for DETM. We have made some changes to fix runtime errors, match the setting in the paper, adapt to arxiv metadata file, but no change to the model:
 ```
 git clone https://github.com/quynhneo/DETM
 ```
