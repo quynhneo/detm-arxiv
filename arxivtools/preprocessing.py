@@ -4,7 +4,7 @@ from itertools import repeat
 import multiprocessing
 
 import nltk
-from nltk.stem import WordNetLemmatizer, SnowballStemmer
+from nltk.stem import WordNetLemmatizer
 import gensim
 
 from nltk.corpus import wordnet
@@ -22,26 +22,26 @@ def get_wordnet_pos(tok):
     return tag_dict.get(tag, wordnet.NOUN)
 
 
-def lemmatize_stemming(token):
-    """ lemmatize the token """
-    stemmer = SnowballStemmer("english")
-    return stemmer.stem(WordNetLemmatizer().lemmatize(token, pos=get_wordnet_pos(token)))
+# def lemmatize_stemming(token):
+#     """ lemmatize the token """
+#     stemmer = SnowballStemmer("english")
+#     return stemmer.stem(WordNetLemmatizer().lemmatize(token, pos=get_wordnet_pos(token)))
 
 
-def preprocess_(document):
-    """ tokenization, remove stopwords and words with less than 3 characters
-     INPUT: a document
-     OUTPUT: a list of token"""
-    result = []
-
-    for token in gensim.utils.simple_preprocess(document, min_len=2):
-        # This lower cases, de-accents (optional), filter words shorter than 2 chars
-        # and TOKENIZE: remove number
-        # the output are final tokens = unicode strings
-        if token not in gensim.parsing.preprocessing.STOPWORDS:  # remove stop words from a list
-            #  result.append(lemmatize_stemming(token))
-            result.append(token)
-    return result
+# def preprocess_(document):
+#     """ tokenization, remove stopwords and words with less than 3 characters
+#      INPUT: a document
+#      OUTPUT: a list of token"""
+#     result = []
+#
+#     for token in gensim.utils.simple_preprocess(document, min_len=2):
+#         # This lower cases, de-accents (optional), filter words shorter than 2 chars
+#         # and TOKENIZE: remove number
+#         # the output are final tokens = unicode strings
+#         if token not in gensim.parsing.preprocessing.STOPWORDS:  # remove stop words from a list
+#             #  result.append(lemmatize_stemming(token))
+#             result.append(token)
+#     return result
 
 
 def preprocess(document: str, stopwords: List[str]) -> List[str]:
