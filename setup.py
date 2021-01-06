@@ -8,4 +8,5 @@ setup(name='arxivtools',
       author_email='qmn203@nyu.edu',
       license='MIT',
       packages=['arxivtools'],
+      install_requires=['nltk', 'gensim'],
       zip_safe=False)
