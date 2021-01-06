@@ -1,5 +1,7 @@
 import json
 from typing import List
+from itertools import repeat
+import multiprocessing
 
 import nltk
 from nltk.stem import WordNetLemmatizer, SnowballStemmer
@@ -83,8 +85,8 @@ def read_meta_data(json_file: json, category: str = None) -> List[str]:
     line_count = 0
     all_docs = []
     for line in file:  # 1.7m
-        # if line_count > 1000: # uncomment this to do quick test run
-        #     break
+        if line_count > 5000: # uncomment this to do quick test run
+            break
         try:
             # line_view = json.loads(file.readline())  # view object of the json line
             line_view = json.loads(line)  # view object of the json line
@@ -109,6 +111,32 @@ def read_meta_data(json_file: json, category: str = None) -> List[str]:
     return all_docs
 
 
-def rm_extremes(doc: List[str], to_keep_dict: List[str]) -> List[str]:
-    """remove str element in doc if it's not also in to_keep_dict"""
-    return [w for w in doc if w in to_keep_dict]
+def rm_unlisted_words(doc: List[str], whitelist: List[str]) -> List[str]:
+    """remove str element in doc if it's not also in whitelist"""
+    return [w for w in doc if w in whitelist]
+
+
+def frequency_filter(list_o_list: List[List[str]], min_docs: int, max_portion: float) -> List[List[str]]:
+    """filter out words that appear in less than min_docs of document and more than max_portion of documents"""
+    #  get a dictionary: key: integer id, value: word (str)
+    print('getting dictionary')
+    dictionary = gensim.corpora.Dictionary(list_o_list)
+    # dictionary encapsulates the mapping between normalized words and their integer ids.
+
+    print('filter out extremes frequencies')
+    dictionary.filter_extremes(no_below=min_docs, no_above=max_portion)
+    #  dictionary of none-extreme words -- Dieng & Blei 2019 setting
+    #  apply filter to the list of doc
+    #  no_below: minimum document frequency (int)
+    #  no_above: maximum document frequency (float [0,1])
+
+    print('number of cpus: ', multiprocessing.cpu_count())
+    pool_ = multiprocessing.Pool(processes=multiprocessing.cpu_count())
+
+    print('apply filters')
+    # for each document in the list of document, select only words in the dictionary, and not in list of stopwords
+    list_o_list_filtered = pool_.starmap(rm_unlisted_words, zip(list_o_list, repeat(dictionary.token2id)))
+
+    pool_.close()
+    pool_.join()
+    return list_o_list_filtered

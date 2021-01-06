@@ -2,13 +2,12 @@ import multiprocessing
 from itertools import repeat
 import timeit
 
-import gensim
-from gensim.models import Word2Vec
 
-from preprocess import read_meta_data, preprocess, rm_extremes
+from gensim.models import Word2Vec
+from preprocessing import read_meta_data, preprocess, frequency_filter
 
 start_time = timeit.default_timer()
-
+from typing import List
 
 # ------for reading from csv file ------
 
@@ -30,6 +29,7 @@ start_time = timeit.default_timer()
 #
 # print('processed: \n', preprocess(doc_sample))
 
+
 if __name__ == '__main__':
     # Read stopwords
     with open('stops.txt', 'r') as f:
@@ -44,30 +44,14 @@ if __name__ == '__main__':
     pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
     list_of_list = pool.starmap(preprocess, zip(all_docs_ini, repeat(stops)))
 
-    del all_docs_ini
-
-    #  get a dictionary: key: integer id, value: word (str)
-    print('getting dictionary')
-    dictionary = gensim.corpora.Dictionary(list_of_list)
-    # dictionary encapsulates the mapping between normalized words and their integer ids.
-
-    print('filter out extremes frequencies')
-    dictionary.filter_extremes(no_below=30, no_above=0.7)
-    #  dictionary of none-extreme words -- Dieng & Blei 2019 setting
-    #  apply filter to the list of doc
-    #  no_below: minimum document frequency (int)
-    #  no_above: maximum document frequency (float [0,1])
-
-    print('apply filters')
-    # for each document in the list of document, select only words in the dictionary, and not in list of stopwords
-    list_of_list_filtered = pool.starmap(rm_extremes, zip(list_of_list, repeat(dictionary.token2id)))
-
-    print('break')
-
-    del dictionary
-    del list_of_list
     pool.close()
     pool.join()
+    del all_docs_ini
+
+    list_of_list_filtered = frequency_filter(list_of_list, 30, 0.7)
+
+    print('break')
+    del list_of_list
 
     EMB_DIM = 300  # embedding dimension
 
