@@ -59,13 +59,15 @@ def preprocess(document: str, stopwords: List[str]) -> List[str]:
     result = []
 
     lemma = WordNetLemmatizer()
-    punctuation='!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~'  # modified from python string.punctuation, removed hyphen
-    for token in document.split():
-        token = token.lower().replace("’", "").replace("'", "").replace("\n", " ").translate(
-            str.maketrans(punctuation, " "*len(punctuation)))
+    punctuation = '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~'  # modified from python string.punctuation, removed hyphen
 
+    # replace punctuation with white space
+    document = document.lower().replace("’", "").replace("'", "").replace("\n", " ").translate(
+        str.maketrans(punctuation, " "*len(punctuation)))
+
+    for token in document.split():
         if len(token) > 1 and token not in stopwords:   # and token.islower() removes pure numeric
-            #token = lemma.lemmatize(token, pos=get_wordnet_pos(token))  # plural-> singular, Verb-ing to verb, etc
+            token = lemma.lemmatize(token, pos=get_wordnet_pos(token))  # plural-> singular, Verb-ing to verb, etc
             # doesn't work for all words
             result.append(token)
 
