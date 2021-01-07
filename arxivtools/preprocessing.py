@@ -59,13 +59,13 @@ def preprocess(document: str, stopwords: List[str]) -> List[str]:
     result = []
 
     lemma = WordNetLemmatizer()
-
+    punctuation='!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~'  # modified from python string.punctuation, removed hyphen
     for token in document.split():
         token = token.lower().replace("’", "").replace("'", "").replace("\n", " ").translate(
-            str.maketrans('', '', '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~'))  # modified from python string.punctuation
+            str.maketrans(punctuation, " "*len(punctuation)))
 
-        if len(token) > 1 and token.islower() and token not in stopwords:
-            token = lemma.lemmatize(token, pos=get_wordnet_pos(token))  # plural-> singular, Verb-ing to verb, etc
+        if len(token) > 1 and token not in stopwords:   # and token.islower() removes pure numeric
+            #token = lemma.lemmatize(token, pos=get_wordnet_pos(token))  # plural-> singular, Verb-ing to verb, etc
             # doesn't work for all words
             result.append(token)
 
@@ -80,8 +80,6 @@ def read_meta_data(json_file: json, category: str = None) -> (List[str], List[st
     category: include all categories if not specified
 
     """
-    # Read raw data
-    print('reading raw data...')
 
     file = open(json_file, 'r')
     line_count = 0
