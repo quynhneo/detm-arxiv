@@ -54,7 +54,7 @@ def preprocess(document: str, stopwords: List[str]) -> List[str]:
         remove stop words from provided list and words with less than 1 characters from document
     note:
         latex expressions are not processed
-        hyphens (e.g. kaluza-klein), and numbers (e.g. 3D), and accent are allowed
+        hyphens (e.g. kaluza-klein), and numbers (e.g. 3D, 750), and accent are allowed
     """
     result = []
 
@@ -62,7 +62,7 @@ def preprocess(document: str, stopwords: List[str]) -> List[str]:
     punctuation = '!"#$%&\'()*+,./:;<=>?@[\\]^_`{|}~'  # modified from python string.punctuation, removed hyphen
 
     # replace punctuation with white space
-    document = document.lower().replace("’", "").replace("'", "").replace("\n", " ").translate(
+    document = document.lower().replace("’", " ").replace("'", " ").replace("\n", " ").translate(
         str.maketrans(punctuation, " "*len(punctuation)))
 
     for token in document.split():
