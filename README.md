@@ -71,4 +71,4 @@ Tracking the word `diphoton`, its peak probability coincides with the [flurry of
 ![diphoton](https://github.com/quynhneo/detm-arxiv/blob/master/diphoton.png)
 (`diphoton` topic contribution is dominated by other words in topic 3 and 46 which are not shown here)
 
-The above plots are from running 400 epoches on data of 150,000 abstracts of `hep-ph`. We use 4 Nvidia RTX8000 GPUs and the runtime was 13 hours.
+The above plots are from running 400 epoches on data of 150,000 abstracts of `hep-ph`. We use 1 Nvidia RTX8000 GPUs and the runtime was 13 hours.
