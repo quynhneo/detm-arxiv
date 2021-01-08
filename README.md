@@ -61,14 +61,11 @@ python plot_word_evolution.py
 
 
 ## Preliminary results
-The plot below shows results for DETM on [`hep-ph`](https://arxiv.org/archive/hep-ph) (high energy physics phenomenology) category. Assuming there are 50 topics, the 6 most meaningful ones were  manually. For each topics, probabilities of some top words are plotted against time (2007-2020). 
+The plot below shows results for DETM on [`hep-ph`](https://arxiv.org/archive/hep-ph) (high energy physics phenomenology) category. Six topics out of 50 are shown here. For each topics, probabilities of some selected words are plotted against time (2007-2020). 
 For example, topic 46 shows the increase in `higgs` coinciding with the discovery of Higgs boson in 2012.
 
-![result](https://github.com/quynhneo/detm-arxiv/blob/master/detm_un_K_50_Htheta_800_Optim_adam_Clip_2.0_ThetaAct_relu_Lr_0.001_Bsz_200_RhoSize_300_L_4_minDF_30_trainEmbeddings_1_beta.png)
+![result](https://github.com/quynhneo/detm-arxiv/blob/master/detm_un_K_50_Htheta_800_Optim_adam_Clip_2.0_ThetaAct_relu_Lr_0.001_Bsz_200_RhoSize_300_L_4_minDF_15_trainEmbeddings_0_beta.png)
 
-Tracking the word `diphoton`, its peak probability coincides with the [flurry of papers](https://en.wikipedia.org/wiki/750_GeV_diphoton_excess) on a possible discovery of new physics around 2015-2016, which turned out to be just a statistical fluke. 
-
-![diphoton](https://github.com/quynhneo/detm-arxiv/blob/master/diphoton.png)
-(`diphoton` topic contribution is dominated by other words in topic 3 and 46 which are not shown here)
+Tracking the word `750`, its peak probability coincides with the [flurry of papers](https://en.wikipedia.org/wiki/750_GeV_diphoton_excess) on a possible discovery of new physics around 2015-2016, which turned out to be just a statistical fluke. 
 
 The above plots are from running 400 epoches on data of 150,000 abstracts of `hep-ph`. We use 1 Nvidia RTX8000 GPUs and the runtime was 13 hours.
