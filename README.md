@@ -66,6 +66,6 @@ The plot below shows results for DETM on [`hep-ph`](https://arxiv.org/archive/he
 
 ![result](https://github.com/quynhneo/detm-arxiv/blob/master/detm_un_K_50_Htheta_800_Optim_adam_Clip_2.0_ThetaAct_relu_Lr_0.001_Bsz_200_RhoSize_300_L_4_minDF_15_trainEmbeddings_0_beta.png)
 
-In topics #33 and #34, peak probability of the word `750` coincides with the [flurry of papers](https://en.wikipedia.org/wiki/750_GeV_diphoton_excess) on a possible discovery of new physics around 2015-2016, which turned out to be just a statistical fluke. 
+In topics #33 and #34, peak probability of the word `750` coincides with the [flurry of papers](https://en.wikipedia.org/wiki/750_GeV_diphoton_excess) on a possible discovery of new physics around 2015-2016, which turned out to be just a statistical fluke. Topic 38 shows the increase in `higgs` around the time of the  discovery of Higgs boson in 2012.
 
 The above plots are from running 400 epoches on data of 150,000 abstracts of `hep-ph`. We use 1 Nvidia RTX8000 GPUs and the runtime was 13 hours.
