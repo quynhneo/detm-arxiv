@@ -1,5 +1,5 @@
 # Extracting topic trends from paper abstracts with DETM 
-Quynh M. Nguyen<sup> a, b</sup> and Kyle Cranmer<sup> a, c</sup>
+Quynh M. Nguyen<sup> a, b, c</sup> and Kyle Cranmer<sup> a, c</sup>
 
 <sup> a</sup> _Physics Department, New York University, New York 10003_
 
